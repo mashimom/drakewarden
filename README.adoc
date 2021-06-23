@@ -44,13 +44,13 @@ toc::[]
 . setup project:
 - [x] README file
 - [x] gradle
-- [ ] spock tests
-- [ ] spock integration tests
-- [ ] git ignores
+- [x] spock tests
+- [x] spock integration tests
+- [x] git ignores
 . functionalities:
-- [ ] Range interface
-- [ ] Ranges factory
-- [ ] closed-open implementation
+- [x] Range interface
+- [x] Ranges factory
+- [x] closed-open implementation
 - [ ] closed-closed implementation
 - [ ] open-open implementation
 - [ ] open-closed implementation
