@@ -1,0 +1,129 @@
+plugins {
+    id 'build-dashboard'
+    id 'com.github.ben-manes.versions' version '0.39.0'
+    id 'com.palantir.git-version' version '0.12.3'
+    id 'groovy'
+    id 'idea'
+    id 'jacoco'
+    id 'java-library'
+    id 'nebula.maven-publish' version '17.3.2'
+    id 'nebula.project' version '8.0.0'
+    id 'project-report'
+}
+
+apply plugin: 'nebula.facet'
+
+defaultTasks 'clean', 'printVersion', 'classes', 'projectReport', 'buildDashboard', 'check', 'jar', 'publishToMavenLocal'
+
+//noinspection GroovyUnusedAssignment
+group = 'org.shimomoto'
+//noinspection GroovyAssignabilityCheck
+version gitVersion()
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+facets {
+    integrationTest {
+        parentSourceSet = 'main'
+        //noinspection GroovyAssignabilityCheck
+        testTaskName = 'integrationTest'
+
+    }
+}
+
+configurations {
+    integrationTestImplementation {
+        extendsFrom testImplementation
+    }
+    integrationTestRuntime {
+        extendsFrom testRuntimeOnly
+    }
+}
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.jetbrains:annotations:21.0.1'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.jetbrains:annotations:21.0.1'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+
+    implementation 'com.codepoetics:protonpack:1.16'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.apache.commons:commons-text:1.9'
+    implementation 'commons-validator:commons-validator:1.7'
+
+    testImplementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    testImplementation 'org.hamcrest:hamcrest-core:2.2'
+    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation 'org.spockframework:spock-core'
+    testImplementation 'org.spockframework:spock-junit4'
+    testImplementation('com.athaydes:spock-reports:2.0-groovy-3.0') {
+        transitive = false
+    }
+
+    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.11.1'
+    testRuntimeOnly 'org.objenesis:objenesis:3.2'
+
+    integrationTestCompileOnly 'org.projectlombok:lombok:1.18.20'
+    integrationTestCompileOnly 'org.jetbrains:annotations:21.0.1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+//        events 'passed', 'skipped', 'failed'
+        events 'failed'
+    }
+    finalizedBy jacocoTestReport
+}
+
+integrationTest {
+    useJUnitPlatform()
+    maxHeapSize = "4096m"
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+    finalizedBy jacocoTestReport
+    outputs.upToDateWhen { false }
+}
+
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['org/shimomoto/yakety/csv/config/*',])
+        }))
+    }
+    dependsOn test
+}
+
+javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
+
+    rejectVersionIf {
+        isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+    }
+
+    resolutionStrategy {
+        componentSelection {
+            all {
+                if (isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)) {
+                    reject('Release candidate')
+                }
+            }
+        }
+    }
+}
