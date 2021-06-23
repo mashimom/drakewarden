@@ -1,0 +1,121 @@
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+:source-highlighter: rouge
+:toc:
+:toc-placement!:
+
+= Drakewarden the range library
+
+This library should contain a simple, well tested and useful library for range creation and checks.
+The math behind it comes from: https://en.wikipedia.org/wiki/Interval_(mathematics)
+While of the terms come from: https://en.wikipedia.org/wiki/Interval_(mathematics)#Terminology
+
+IMPORTANT: It is not production ready yet
+
+toc::[]
+
+== Features
+
+* Simplified interface
+* Reduced runtime dependencies
+* Ranges on any comparable value
+
+=== Bucket list
+
+* Extra predicates
+* Operations between ranges
+
+== Release Plans
+
+* `v0.0.X` - empty project that compiles
+* `v0.1.X` - initial Range interface and _closed-open_ implementation with `contains` value operation
+* `v0.2.X` - implementations for _closed-closed_, _open-open_, _open-closed_ ranges
+* `v0.3.X` - extra range operations `isDegenerate`, `getLeft`, `isLeftClosed`, `getRight`, `isRightClosed`
+* `v0.4.X` - implementations for infinite range
+* `v1.0.X` - implementation for left-bound and right-bound range
+
+== Tasks
+
+. setup project:
+- [x] README file
+- [ ] gradle
+- [ ] spock tests
+- [ ] spock integration tests
+- [ ] git ignores
+. functionalities:
+- [ ] Range interface
+- [ ] Ranges factory
+- [ ] closed-open implementation
+- [ ] closed-closed implementation
+- [ ] open-open implementation
+- [ ] open-closed implementation
+- [ ] range bound extraction `getLeft` and `getRight`
+- [ ] range identifying function `isDegenerate`
+- [ ] range identifying function `isLeftClosed` and `isLeftOpen`
+- [ ] range identifying function `isRightClosed` and `isRightOpen`
+- [ ] infinite range
+- [ ] half-bound ranges both open and closed for left or right bounds
+- [ ] infinite range
+
+== How to build
+
+=== Environment setup requirements
+
+Java 11+ is needed, get it with SDKMan Gradle configuration recommended, ~/.gradle/gradle.properties:
+
+[source,properties]
+-----------------------------------------------------------
+org.gradle.parallel=true
+org.gradle.jvmargs=-Xmx2048M
+org.gradle.caching=true
+org.gradle.daemon.idletimeout=1800000
+org.gradle.java.home=/home/user/.sdkman/candidates/java/11.0.11.hs-adpt # <1>
+-----------------------------------------------------------
+<1> your own path for the JDK 16+
+
+=== _TL;DR_
+
+[source,shell]
+-----------------------------------------------------------
+./gradlew
+-----------------------------------------------------------
+
+== How to use
+
+The library is not published to a Maven repo yet, can be built locally.
+
+=== Simple example
+
+[source, java]
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+
+
+=== TL;DR
+
+Snippets are not real life examples?!
+
+Ok, read the contents of link:src/integrationTest/groovy/org/shimomoto/drakewarden/UsageIT.groovy[UsageIT.groovy], it creates multiple ranges and shows how to use them while asserting correctness.
+
+If you just want to read from the test results:
+[source, shell]
+-----------------------------------------------------------
+./gradlew integrationTest
+-----------------------------------------------------------
+
+then open link:build/reports/spock-reports/integrationTest/index.html[].
+
+== Learning notes
+
+. Having a template is better than relying on Gradle's
+
+== Questions
+
+. Should range arithmetics be created early on?
+. Is a composite range that has one or more breaks internally useful or just confusing?
