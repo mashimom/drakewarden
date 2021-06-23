@@ -10,9 +10,4 @@ import org.jetbrains.annotations.NotNull;
 abstract class BaseRange<T extends Comparable<T>> implements Range<T> {
 	@NotNull T left;
 	@NotNull T right;
-
-	@Override
-	public boolean test(T t) {
-		return contains(t);
-	}
 }

@@ -8,7 +8,7 @@ final class ClosedOpen<T extends Comparable<T>> extends BaseRange<T> implements 
 	}
 
 	@Override
-	public boolean contains(T value) {
+	public boolean test(T value) {
 		return left.compareTo(value) <= 0
 						&& right.compareTo(value) > 0;
 	}
