@@ -11,8 +11,10 @@ endif::[]
 
 = Drakewarden the range library
 
-This library should contain a simple, well tested and useful library for range creation and checks.
-The math behind it comes from: https://en.wikipedia.org/wiki/Interval_(mathematics)
+NOTE: Drakewarden - A D&D ranger archetype subclass that has a drake as a companion. See https://dnd-wiki.org/wiki/Drakewarden_(5e)[D&D wiki]
+
+This library should contain a simple, well tested and useful range implementation, with easy creation and use as predicate. +
+The math behind it comes from: https://en.wikipedia.org/wiki/Interval_(mathematics) +
 While of the terms come from: https://en.wikipedia.org/wiki/Interval_(mathematics)#Terminology
 
 IMPORTANT: It is not production ready yet
@@ -61,6 +63,8 @@ toc::[]
 - [ ] infinite range
 - [ ] half-bound ranges both open and closed for left or right bounds
 - [ ] infinite range
+- [ ] create a range for a non-comparable value by providing a custom comparator
+- [ ] range on range operations `overlaps`
 
 == How to build
 
