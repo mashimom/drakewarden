@@ -10,4 +10,14 @@ public class Ranges {
 		return new ClosedOpen<>(left, right);
 	}
 
+	public static <T extends Comparable<T>> Range<T> closedClosed(@NotNull T left, @NotNull T right) {
+		return new ClosedClosed<>(left, right);
+	}
+
+	public static <T extends Comparable<T>> Range<T> openOpen(@NotNull T left, @NotNull T right) {
+		return new OpenOpen<>(left, right);
+	}
+	public static <T extends Comparable<T>> Range<T> openClosed(@NotNull T left, @NotNull T right) {
+		return new OpenClosed<>(left, right);
+	}
 }

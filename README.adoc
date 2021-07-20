@@ -42,6 +42,7 @@ toc::[]
 * `v0.2.X` - implementations for _closed-closed_, _open-open_, _open-closed_ ranges
 * `v0.3.X` - extra range operations `isDegenerate`, `getLeft`, `isLeftClosed`, `getRight`, `isRightClosed`
 * `v0.4.X` - implementations for infinite range
+* `v0.5.X` - gitlab ci and maven artifact publishing
 * `v1.0.X` - implementation for left-bound and right-bound range
 
 == Tasks
