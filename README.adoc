@@ -57,9 +57,9 @@ toc::[]
 - [x] Range interface
 - [x] Ranges factory
 - [x] closed-open implementation
-- [ ] closed-closed implementation
-- [ ] open-open implementation
-- [ ] open-closed implementation
+- [x] closed-closed implementation
+- [x] open-open implementation
+- [x] open-closed implementation
 - [ ] range bound extraction `getLeft` and `getRight`
 - [ ] range identifying function `isDegenerate`
 - [ ] range identifying function `isLeftClosed` and `isLeftOpen`
