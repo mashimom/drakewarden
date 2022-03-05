@@ -60,10 +60,10 @@ toc::[]
 - [x] closed-closed implementation
 - [x] open-open implementation
 - [x] open-closed implementation
-- [ ] range bound extraction `getLeft` and `getRight`
-- [ ] range identifying function `isDegenerate`
-- [ ] range identifying function `isLeftClosed` and `isLeftOpen`
-- [ ] range identifying function `isRightClosed` and `isRightOpen`
+- [x] range bound extraction `getLeft` and `getRight`
+- [x] range identifying function `isDegenerate`
+- [x] range identifying function `isLeftClosed` and `isLeftOpen`
+- [x] range identifying function `isRightClosed` and `isRightOpen`
 - [ ] infinite range
 - [ ] half-bound ranges both open and closed for left or right bounds
 - [ ] infinite range
@@ -74,7 +74,9 @@ toc::[]
 
 === Environment setup requirements
 
-Java 11+ is needed, get it with SDKMan Gradle configuration recommended, ~/.gradle/gradle.properties:
+Java 11+ is needed, get it with https://sdkman.io/[SDKMan]. Then use the SDKMan config file to set default JDK (or use your own choice)
+
+Gradle configuration recommended, `~/.gradle/gradle.properties`:
 
 [source,properties]
 -----------------------------------------------------------
@@ -82,15 +84,14 @@ org.gradle.parallel=true
 org.gradle.jvmargs=-Xmx2048M
 org.gradle.caching=true
 org.gradle.daemon.idletimeout=1800000
-org.gradle.java.home=/home/user/.sdkman/candidates/java/11.0.11.hs-adpt # <1>
 -----------------------------------------------------------
-<1> your own path for the JDK 16+
 
 === _TL;DR_
 
 [source,shell]
 -----------------------------------------------------------
-./gradlew
+sdk env install
+gradle
 -----------------------------------------------------------
 
 == How to use
