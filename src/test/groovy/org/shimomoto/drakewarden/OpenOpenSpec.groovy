@@ -1,5 +1,7 @@
 package org.shimomoto.drakewarden
 
+import org.shimomoto.drakewarden.api.Range
+
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 
@@ -41,5 +43,55 @@ class OpenOpenSpec extends Specification {
 		!r.contains(right)
 		!r.contains(LocalDate.of(2020, 1 ,1))
 		!r.contains(LocalDate.of(2022, 1 ,1))
+	}
+
+	def "isDegenerate accepts"() {
+		given:
+		final def rg = Ranges.openOpen(l, l)
+
+		expect:
+		rg.isDegenerate()
+
+		where:
+		_ | l
+		0 | 0i
+		1 | LocalDate.of(2021, 6, 1)
+		2 | 123456L
+		3 | 9.9 //BigDecimal
+	}
+
+	def "isDegenerate refuses"() {
+		given:
+		final def rg = Ranges.openOpen(l, r)
+
+		expect:
+		!rg.isDegenerate()
+
+		where:
+		_ | l                        | r
+		0 | 0i                       | 1i
+		1 | LocalDate.of(2021, 6, 1) | LocalDate.of(2021, 6, 23)
+		2 | 123456L                  | 654321L
+		3 | 9.9                      | 10.1 //BigDecimal
+	}
+
+	def "left checks"() {
+		given: 'range [0,1)'
+		final Range<Integer> r = Ranges.openOpen(0i, 1i)
+
+		expect:
+		r.left == 0i
+		!r.leftClosed
+		r.leftOpen
+	}
+
+	def "right checks"() {
+		given: 'range [0,1)'
+		final Range<Integer> r = Ranges.openOpen(0i, 1i)
+
+		expect:
+		r.right == 1i
+		!r.rightClosed
+		r.rightOpen
 	}
 }

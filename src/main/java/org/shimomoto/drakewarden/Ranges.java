@@ -2,6 +2,7 @@ package org.shimomoto.drakewarden;
 
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import org.shimomoto.drakewarden.api.Range;
 
 @UtilityClass
 public class Ranges {
