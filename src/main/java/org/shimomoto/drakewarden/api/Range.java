@@ -1,19 +1,32 @@
 package org.shimomoto.drakewarden.api;
 
-import java.util.function.Predicate;
+import java.util.Objects;
 
-public interface Range<T extends Comparable<T>> extends Predicate<T> {
-	default boolean contains(T value) {
-		return test(value);
+@FunctionalInterface
+public interface Range<T extends Comparable<T>> {
+	boolean contains(T value);
+
+	default Range<T> union(Range<T> other) {
+		Objects.requireNonNull(other);
+		return (t) -> contains(t) || other.contains(t);
 	}
-	T getLeft();
-	T getRight();
 
-	boolean isLeftClosed();
-	default boolean isLeftOpen(){return !isLeftClosed();}
+	default Range<T> intersection(Range<T> other) {
+		Objects.requireNonNull(other);
+		return (t) -> contains(t) && other.contains(t);
+	}
 
-	boolean isRightClosed();
-	default boolean isRightOpen(){return !isRightClosed();}
+	default Range<T> difference(Range<T> other) {
+		Objects.requireNonNull(other);
+		return (t) -> contains(t) && !other.contains(t);
+	}
 
-	boolean isDegenerate();
+	default Range<T> symmetricDifference(Range<T> other) {
+		Objects.requireNonNull(other);
+		return (t) -> (contains(t) && !other.contains(t)) || (!contains(t) && other.contains(t));
+	}
+
+	default Range<T> complement() {
+		return (t) -> !contains(t);
+	}
 }

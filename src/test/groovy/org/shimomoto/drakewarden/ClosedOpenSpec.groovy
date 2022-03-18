@@ -1,6 +1,6 @@
 package org.shimomoto.drakewarden
 
-import org.shimomoto.drakewarden.api.Range
+import org.shimomoto.drakewarden.api.ProperBoundRange
 
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
@@ -10,16 +10,14 @@ import spock.lang.Specification
 class ClosedOpenSpec extends Specification {
 	def "Simple range test"() {
 		given: 'range [0,1)'
-		final Range<Integer> r = Ranges.closedOpen(0i, 1i)
+		final ProperBoundRange<Integer> r = Ranges.closedOpen(0i, 1i)
 
 		expect: 'contains 0'
 		r.contains(0i)
-		r.test(0i)
 		and: 'does not contain any other integer'
 		!r.contains(Integer.MIN_VALUE)
 		!r.contains(-1i)
 		!r.contains(1i)
-		!r.test(1i)
 		!r.contains(10i)
 		!r.contains(Integer.MAX_VALUE)
 	}
@@ -28,18 +26,16 @@ class ClosedOpenSpec extends Specification {
 		given: 'range [2021-06-01,2021-06-23)'
 		final LocalDate left = LocalDate.of(2021, 6, 1)
 		final LocalDate right = LocalDate.of(2021, 6, 23)
-		final Range<ChronoLocalDate> r = Ranges.closedOpen(left, right)
+		final ProperBoundRange<ChronoLocalDate> r = Ranges.closedOpen(left, right)
 
 		expect: 'contains 0'
 		r.contains(left)
-		r.test(left)
 		r.contains(left + 1)
 		r.contains(left + 12)
 		r.contains(left + 21)
 		and: 'does not contain any other integer'
 		!r.contains(left - 1)
 		!r.contains(left + 22)
-		!r.test(left + 22)
 		!r.contains(LocalDate.of(2020, 1, 1))
 		!r.contains(LocalDate.of(2022, 1, 1))
 	}
@@ -76,7 +72,7 @@ class ClosedOpenSpec extends Specification {
 
 	def "left checks"() {
 		given: 'range [0,1)'
-		final Range<Integer> r = Ranges.closedOpen(0i, 1i)
+		final ProperBoundRange<Integer> r = Ranges.closedOpen(0i, 1i)
 
 		expect:
 		r.left == 0i
@@ -86,7 +82,7 @@ class ClosedOpenSpec extends Specification {
 
 	def "right checks"() {
 		given: 'range [0,1)'
-		final Range<Integer> r = Ranges.closedOpen(0i, 1i)
+		final ProperBoundRange<Integer> r = Ranges.closedOpen(0i, 1i)
 
 		expect:
 		r.right == 1i

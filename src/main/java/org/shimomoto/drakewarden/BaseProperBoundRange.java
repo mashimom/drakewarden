@@ -5,17 +5,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
-import org.shimomoto.drakewarden.api.Range;
+import org.shimomoto.drakewarden.api.ProperBoundRange;
 
 @FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 @Getter
 @RequiredArgsConstructor
-abstract class BaseRange<T extends Comparable<T>> implements Range<T> {
+abstract class BaseProperBoundRange<T extends Comparable<T>> implements ProperBoundRange<T> {
 	@NotNull T left;
 	@NotNull T right;
-
-	@Override
-	public boolean isDegenerate() {
-		return left.compareTo(right) == 0;
-	}
 }
