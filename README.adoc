@@ -15,12 +15,12 @@ NOTE: Drakewarden - A D&D ranger archetype subclass that has a drake as a compan
 
 This library is a simple, well tested and useful range implementation, aims to be a good choice for functional usage  by being immutable, lightweight and predicate ready.
 
-No extra dependencies but requires latest Java LTS.
+No extra dependencies but requires somewhat recent Java 11.
 
 The math behind it comes from: https://en.wikipedia.org/wiki/Interval_(mathematics) +
 While of the terms come from: https://en.wikipedia.org/wiki/Interval_(mathematics)#Terminology
 
-IMPORTANT: It is not production ready yet
+IMPORTANT: It has been tested outside production, please report any issues or open a MR.
 
 toc::[]
 
@@ -41,8 +41,8 @@ toc::[]
 * `v0.1.X` - initial Range interface and _closed-open_ implementation with `contains` value operation
 * `v0.2.X` - implementations for _closed-closed_, _open-open_, _open-closed_ ranges
 * `v0.3.X` - extra range operations `isDegenerate`, `getLeft`, `isLeftClosed`, `getRight`, `isRightClosed`
-* `v0.4.X` - implementations for infinite range
-* `v0.5.X` - gitlab ci and maven artifact publishing
+* `v0.4.X`? - implementations for infinite range
+* `v0.5.X`? - gitlab ci and static code checks
 * `v1.0.X` - implementation for left-bound and right-bound range
 
 == Tasks
@@ -64,11 +64,10 @@ toc::[]
 - [x] range identifying function `isDegenerate`
 - [x] range identifying function `isLeftClosed` and `isLeftOpen`
 - [x] range identifying function `isRightClosed` and `isRightOpen`
-- [ ] infinite range
-- [ ] half-bound ranges both open and closed for left or right bounds
-- [ ] infinite range
+- [x] infinite range
+- [x] half-bound ranges both open and closed for left or right bounds
 - [ ] create a range for a non-comparable value by providing a custom comparator
-- [ ] range on range operations `overlaps`
+- [x] range on range operations, ranges can behave analogous to sets for these operations
 
 == How to build
 
@@ -100,24 +99,20 @@ The library is not published to a Maven repo yet, can be built locally.
 
 === Simple example
 
-[source, java]
------------------------------------------------------------
-
------------------------------------------------------------
-
+Please check unit tests for example usage.
 
 === TL;DR
-
+[.line-through]
 Snippets are not real life examples?!
-
+[.line-through]
 Ok, read the contents of link:src/integrationTest/groovy/org/shimomoto/drakewarden/UsageIT.groovy[UsageIT.groovy], it creates multiple ranges and shows how to use them while asserting correctness.
-
+[.line-through]
 If you just want to read from the test results:
 [source, shell]
 -----------------------------------------------------------
 ./gradlew integrationTest
 -----------------------------------------------------------
-
+[.line-through]
 then open link:build/reports/spock-reports/integrationTest/index.html[].
 
 == Learning notes
@@ -126,5 +121,5 @@ then open link:build/reports/spock-reports/integrationTest/index.html[].
 
 == Questions
 
-. Should range arithmetics be created early on?
-. Is a composite range that has one or more breaks internally useful or just confusing?
+. Should range arithmetics be created early on? _NO_
+. Is a composite range that has one or more breaks internally useful or just confusing? It can be achieved via "Range on Range operations".
