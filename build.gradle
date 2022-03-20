@@ -60,6 +60,7 @@ dependencies {
     testImplementation('com.athaydes:spock-reports:2.0-groovy-3.0') {
         transitive = false
     }
+    testImplementation 'com.codepoetics:protonpack:1.16'
 
     testRuntimeOnly 'net.bytebuddy:byte-buddy:1.11.1'
     testRuntimeOnly 'org.objenesis:objenesis:3.2'
