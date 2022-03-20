@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @NoArgsConstructor
 @EqualsAndHashCode
-public final class UnboundedRange<T extends Comparable<T>> implements Range<T> {
+final class UnboundedRange<T extends Comparable<T>> implements Range<T> {
 	private final Map<RangeEnd, EndClassifier> classifiedEnds =
 			Map.of(RangeEnd.LEFT, EndClassifier.UNBOUND,
 					RangeEnd.RIGHT, EndClassifier.UNBOUND);

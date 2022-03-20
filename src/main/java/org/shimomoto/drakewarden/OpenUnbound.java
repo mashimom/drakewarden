@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 @EqualsAndHashCode(callSuper = true)
-public class OpenUnbound<T extends Comparable<T>> extends BaseLeftBoundRange<T> {
+final class OpenUnbound<T extends Comparable<T>> extends BaseLeftBoundRange<T> {
 	private final Map<RangeEnd, EndClassifier> classifiedEnds =
 			Map.of(RangeEnd.LEFT, EndClassifier.OPEN,
 					RangeEnd.RIGHT, EndClassifier.UNBOUND);
