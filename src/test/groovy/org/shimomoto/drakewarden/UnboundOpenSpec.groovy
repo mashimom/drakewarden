@@ -1,3 +1,4 @@
+//file:noinspection GroovyVariableCanBeFinal
 package org.shimomoto.drakewarden
 
 import spock.lang.Shared
@@ -49,7 +50,7 @@ class UnboundOpenSpec extends Specification {
 
 		where:
 		v << Stream.concat(
-				Stream.of(1i, Integer.MAX_VALUE),
+				Stream.of(null, 1i, Integer.MAX_VALUE),
 				random.ints(10,1i, Integer.MAX_VALUE).boxed()
 		).collect(Collectors.toList())
 	}

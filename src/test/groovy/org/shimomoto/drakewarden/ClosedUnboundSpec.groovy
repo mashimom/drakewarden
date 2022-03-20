@@ -1,3 +1,4 @@
+//file:noinspection GroovyVariableCanBeFinal
 package org.shimomoto.drakewarden
 
 import spock.genesis.Gen
@@ -52,7 +53,7 @@ class ClosedUnboundSpec extends Specification {
 		!closedUnbound.contains(v)
 
 		where:
-		v << Gen.these(0i, Integer.MIN_VALUE)
+		v << Gen.these(null, 0i, Integer.MIN_VALUE)
 				.then(Gen.integer(Integer.MIN_VALUE, 0i).seed(seed).take(10).realized)
 	}
 
@@ -80,7 +81,7 @@ class ClosedUnboundSpec extends Specification {
 		!closedUnbound.contains(v)
 
 		where:
-		v << Gen.these(255L, Long.MIN_VALUE)
+		v << Gen.these(null, 255L, Long.MIN_VALUE)
 				.then(new Random(seed)
 						.longs(Long.MIN_VALUE, 255L)
 						.limit(10)
@@ -113,7 +114,7 @@ class ClosedUnboundSpec extends Specification {
 		!closedUnbound.contains(v)
 
 		where:
-		v << Gen.these(bd-0.000005G, 2.32165498G)
+		v << Gen.these(null, bd-0.000005G, 2.32165498G)
 				.then(new Random(seed)
 						.doubles(Double.MIN_NORMAL, bd-0.000005G)
 						.limit(10)

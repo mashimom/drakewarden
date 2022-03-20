@@ -1,3 +1,4 @@
+//file:noinspection GroovyVariableCanBeFinal
 package org.shimomoto.drakewarden
 
 
@@ -54,7 +55,7 @@ class OpenUnboundSpec extends Specification {
 		!openUnbound.contains(v)
 
 		where:
-		v << Gen.these(1i - 1, 1i, Integer.MIN_VALUE)
+		v << Gen.these(null, 1i - 1, 1i, Integer.MIN_VALUE)
 				.then(Gen.integer(Integer.MIN_VALUE, 1i - 1).seed(seed).take(10).realized)
 	}
 
@@ -83,7 +84,7 @@ class OpenUnboundSpec extends Specification {
 
 		where:
 		v << Stream.concat(
-				Stream.of(256L - 1, 256L, Long.MIN_VALUE),
+				Stream.of(null, 256L - 1, 256L, Long.MIN_VALUE),
 				new Random(seed)
 						.longs(Long.MIN_VALUE, 256L - 1)
 						.limit(10)
@@ -116,7 +117,7 @@ class OpenUnboundSpec extends Specification {
 		!openUnbound.contains(v)
 
 		where:
-		v << Gen.these(bd, 2.32165498G)
+		v << Gen.these(null, bd, 2.32165498G)
 				.then(new Random(seed)
 						.doubles(Double.MIN_NORMAL, bd)
 						.limit(10)
